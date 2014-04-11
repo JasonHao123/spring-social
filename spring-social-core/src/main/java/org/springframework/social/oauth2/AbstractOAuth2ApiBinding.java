@@ -30,6 +30,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.ApiBinding;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.web.client.RestTemplate;
@@ -160,10 +161,18 @@ public abstract class AbstractOAuth2ApiBinding implements ApiBinding {
 	 * Override to customize the message converter (for example, to set a custom object mapper or supported media types).
 	 * To remove/replace this or any of the other message converters that are registered by default, override the getMessageConverters() method instead.
 	 */
-	protected MappingJackson2HttpMessageConverter getJsonMessageConverter() {
+	protected MappingJackson2HttpMessageConverter getJsonMessageConverterNew() {
 		return new MappingJackson2HttpMessageConverter(); 
 	}
 	
+	   /**
+     * Returns a {@link MappingJackson2HttpMessageConverter} to be used by the internal {@link RestTemplate}.
+     * Override to customize the message converter (for example, to set a custom object mapper or supported media types).
+     * To remove/replace this or any of the other message converters that are registered by default, override the getMessageConverters() method instead.
+     */
+    protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
+        return new MappingJacksonHttpMessageConverter(); 
+    }
 	/**
 	 * Returns a {@link ByteArrayHttpMessageConverter} to be used by the internal {@link RestTemplate} when consuming image or other binary resources.
 	 * By default, the message converter supports "image/jpeg", "image/gif", and "image/png" media types.
