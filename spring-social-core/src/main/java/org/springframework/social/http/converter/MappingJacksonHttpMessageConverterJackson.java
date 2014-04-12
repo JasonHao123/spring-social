@@ -9,6 +9,16 @@ public class MappingJacksonHttpMessageConverterJackson extends MappingJacksonHtt
     @Override
     public boolean canRead(Type type, Class<?> contextClass, MediaType mediaType) {
         if(type.equals(com.fasterxml.jackson.databind.JsonNode.class)) return false;
+        if (type instanceof Class) {
+            Class clazz = (Class) type;
+
+            MappingJacksonType annotation = (MappingJacksonType) clazz.getAnnotation(MappingJacksonType.class);
+            if (annotation != null) {
+                if (JacksonConverterTypes.Fasterxml == annotation.convertType())
+                    return false;
+            }
+
+        }
         return super.canRead(type, contextClass, mediaType);
     }
 

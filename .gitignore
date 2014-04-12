@@ -10,3 +10,7 @@ exploration
 *.iml
 *.ipr
 *.iws
+/spring-social-config/target
+/spring-social-core/target
+/spring-social-security/target
+/spring-social-web/target
